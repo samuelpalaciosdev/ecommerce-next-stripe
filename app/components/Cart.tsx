@@ -6,10 +6,7 @@ import { IoAddCircle, IoRemoveCircle } from 'react-icons/io5';
 
 export default function Cart() {
   const cartStore = useCartStore();
-  /* Price string */
   const totalPrice = PriceFormat(cartStore.cart.reduce((acc, item) => acc + item.unit_amount! * item.quantity!, 0));
-  /* Price number */
-  const checkoutPrice = parseFloat(totalPrice.substring(1));
 
   return (
     <div onClick={() => cartStore.toggleCart()} className='fixed w-full h-screen left-0 top-0 bg-black/25'>
@@ -17,7 +14,7 @@ export default function Cart() {
         onClick={(e) => e.stopPropagation()}
         className='bg-white absolute right-0 top-0 w-1/4 h-screen p-12 overflow-y-scroll text-gray-700'
       >
-        <h1>{cartStore.cart.length > 0 ? `Here's your shopping list ` : ''}</h1>
+        <span>{cartStore.cart.length > 0 ? `Here's your shopping list ` : ''}</span>
         {cartStore.cart.map((item) => (
           <div className='flex py-4 gap-4' key={item.id}>
             <Image src={item.image} alt={item.name} width={96} height={96} className='aspect-square h-24' />
@@ -59,9 +56,16 @@ export default function Cart() {
             </div>
           </div>
         ))}
-        <button className='py-2 mt-4 bg-teal-600 w-full font-medium rounded-md text-white'>
-          {checkoutPrice > 0 ? `Checkout - ${totalPrice}` : 'Your cart is empty'}
-        </button>
+        {cartStore.cart.length > 0 && (
+          <button className='py-2 mt-4 bg-teal-600 w-full font-medium rounded-md text-white'>
+            Checkout - {totalPrice}
+          </button>
+        )}
+        {!cartStore.cart.length && (
+          <div className='flex flex-col items-center pt-56 opacity-75'>
+            <p className='text-2xl font-medium'>Your cart is empty :(</p>
+          </div>
+        )}
       </div>
     </div>
   );

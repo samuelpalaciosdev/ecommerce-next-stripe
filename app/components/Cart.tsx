@@ -6,7 +6,7 @@ import { IoAddCircle, IoRemoveCircle } from 'react-icons/io5';
 
 export default function Cart() {
   const cartStore = useCartStore();
-  const totalPrice = PriceFormat(cartStore.cart.reduce((acc, item) => acc + item.unit_amount! * item.quantity!, 0));
+  const totalPrice = cartStore.cart.reduce((acc, item) => acc + item.unit_amount! * item.quantity!, 0);
 
   return (
     <div onClick={() => cartStore.toggleCart()} className='fixed w-full h-screen left-0 top-0 bg-black/25'>
@@ -57,9 +57,11 @@ export default function Cart() {
           </div>
         ))}
         {cartStore.cart.length > 0 && (
-          <button className='py-2 mt-4 bg-teal-600 w-full font-medium rounded-md text-white'>
-            Checkout - {totalPrice}
-          </button>
+          // total amount pawragraph
+          <p className='text-base font-semibold text-gray-700'>Total: {PriceFormat(totalPrice)}</p>
+        )}
+        {cartStore.cart.length > 0 && (
+          <button className='py-2 mt-4 bg-teal-600 w-full font-medium rounded-md text-white'>Checkout</button>
         )}
         {!cartStore.cart.length && (
           <div className='flex flex-col items-center pt-56 opacity-75'>

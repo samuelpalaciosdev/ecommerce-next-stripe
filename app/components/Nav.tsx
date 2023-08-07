@@ -16,7 +16,8 @@ export default function Nav({ user }: Session) {
         <span className='text-2xl font-semibold text-blue-500'>Logo</span>
       </Link>
       <ul className='flex items-center gap-12'>
-        <li className='flex items-center text-2xl relative cursor-pointer'>
+        {/*Toggle cart */}
+        <li onClick={() => cartStore.toggleCart()} className='flex items-center text-2xl relative cursor-pointer'>
           <AiFillShopping />
 
           <span className='flex items-center justify-center bg-teal-700 text-white text-sm font-semibold w-5 h-5 rounded-full absolute left-4 bottom-4'>

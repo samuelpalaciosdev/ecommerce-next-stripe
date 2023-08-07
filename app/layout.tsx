@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import Nav from './components/Nav';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
+import Hydrate from './components/Hydrate';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,8 +20,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang='en'>
       <body className={`${inter.className} min-h-screen mx-64`}>
-        <Nav user={session?.user} expires={session?.expires as string} />
-        {children}
+        <Hydrate>
+          <Nav user={session?.user} expires={session?.expires as string} />
+          {children}
+        </Hydrate>
       </body>
     </html>
   );

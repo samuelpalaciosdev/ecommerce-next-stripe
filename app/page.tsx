@@ -18,10 +18,10 @@ export const getProducts = async () => {
         id: product.id,
         name: product.name,
         description: product.description,
-        prices: prices.data[0].unit_amount,
+        unit_amount: prices.data[0].unit_amount,
         image: product.images[0],
         currency: prices.data[0].currency,
-        metadata: product.metadata.features,
+        metadata: product.metadata.features || '',
       };
     })
   );
@@ -30,7 +30,7 @@ export const getProducts = async () => {
 
 export default async function Home() {
   const products = await getProducts();
-  console.log(products);
+  // console.log(products);
   return (
     <main className='grid grid-cols-fluid gap-12'>
       {products.map((product) => (

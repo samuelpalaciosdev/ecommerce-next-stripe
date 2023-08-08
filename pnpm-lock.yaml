@@ -11,6 +11,9 @@ dependencies:
   '@prisma/client':
     specifier: 5.1.1
     version: 5.1.1(prisma@5.1.1)
+  '@stripe/react-stripe-js':
+    specifier: ^2.1.1
+    version: 2.1.1(@stripe/stripe-js@1.54.2)(react-dom@18.2.0)(react@18.2.0)
   '@stripe/stripe-js':
     specifier: ^1.54.2
     version: 1.54.2
@@ -370,6 +373,19 @@ packages:
 
   /@rushstack/eslint-patch@1.3.2:
     resolution: {integrity: sha512-V+MvGwaHH03hYhY+k6Ef/xKd6RYlc4q8WBx+2ANmipHJcKuktNcI/NgEsJgdSUF6Lw32njT6OnrRsKYCdgHjYw==}
+    dev: false
+
+  /@stripe/react-stripe-js@2.1.1(@stripe/stripe-js@1.54.2)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-aHm6cWOqmOyq3eKKlR42hgvrcZhzc9ijL+BeXJ5H3uaWUKKcooSsBys0tiKl0gLxYQHUjUCvrRSX8fYaPBmAKg==}
+    peerDependencies:
+      '@stripe/stripe-js': ^1.44.1
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@stripe/stripe-js': 1.54.2
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /@stripe/stripe-js@1.54.2:

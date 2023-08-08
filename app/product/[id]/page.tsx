@@ -6,7 +6,7 @@ import AddToCart from './AddToCart';
 export default function Product({ searchParams }: searchParamsType) {
   const { id, name, description, features, unit_amount, image } = searchParams;
   return (
-    <div className='flex justify-between gap-24 p-12 text-gray-700'>
+    <div className='flex flex-col lg:flex-row items-center justify-between gap-14 lg:gap-24 p-4 lg:p-8 text-gray-700'>
       <Image src={image} alt={name} width={320} height={320} />
       <div className=''>
         <h1 className='text-xl font-semibold'>{name}</h1>

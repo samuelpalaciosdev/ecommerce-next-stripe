@@ -23,8 +23,8 @@ export const authOptions: AuthOptions = {
       // When creating a user, create a customer for them in Stripe
       if (user.name && user.email) {
         const customer = await stripe.customers.create({
-          email: user.email,
-          name: user.name,
+          email: user.email || undefined,
+          name: user.name || undefined,
         });
 
         // Update our prisma user with the stripe customer id
@@ -37,6 +37,13 @@ export const authOptions: AuthOptions = {
           },
         });
       }
+    },
+  },
+  // Add stripeCustomerId to session
+  callbacks: {
+    async session({ session, token, user }) {
+      session.user = user;
+      return session;
     },
   },
 };

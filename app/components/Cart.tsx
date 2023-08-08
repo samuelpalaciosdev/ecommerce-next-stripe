@@ -5,10 +5,10 @@ import PriceFormat from '@/utils/PriceFormat';
 import { IoAddCircle, IoRemoveCircle } from 'react-icons/io5';
 import { AnimatePresence, motion } from 'framer-motion';
 import Checkout from './Checkout';
+import totalPrice from '@/utils/TotalPrice';
 
 export default function Cart() {
   const cartStore = useCartStore();
-  const totalPrice = cartStore.cart.reduce((acc, item) => acc + item.unit_amount! * item.quantity!, 0);
 
   return (
     <motion.div
@@ -18,14 +18,23 @@ export default function Cart() {
       onClick={() => cartStore.toggleCart()}
       className='fixed w-full h-screen left-0 top-0 bg-black/25'
     >
+      {/* Cart */}
       <motion.div
         layout
         onClick={(e) => e.stopPropagation()}
         className='bg-white absolute right-0 top-0 w-full lg:w-2/5 h-screen p-12 overflow-y-scroll text-gray-700'
       >
-        <div className='text-sm font-semibold text-gray-600 pb-4'>
-          <button onClick={() => cartStore.toggleCart()}>Back to store</button>
-        </div>
+        {cartStore.onCheckout === 'cart' && (
+          <div className='text-sm font-semibold text-gray-600 pb-4'>
+            <button onClick={() => cartStore.toggleCart()}>Back to store</button>
+          </div>
+        )}
+        {cartStore.onCheckout === 'checkout' && (
+          <div className='text-sm font-semibold text-gray-600 pb-4'>
+            <button onClick={() => cartStore.setCheckout('cart')}>Check your cart</button>
+          </div>
+        )}
+
         {/* Cart items */}
         {cartStore.onCheckout === 'cart' && (
           <>
@@ -75,18 +84,18 @@ export default function Cart() {
 
         {/* Checkout button */}
         <motion.div layout>
-          {cartStore.cart.length > 0 && (
-            <>
+          {cartStore.cart.length > 0 && cartStore.onCheckout === 'cart' ? (
+            <motion.div layout>
               {/* Total price */}
-              <p className='text-base font-semibold text-gray-700'>Total: {PriceFormat(totalPrice)}</p>
+              <p className='text-base font-semibold text-gray-700'>Total: {PriceFormat(totalPrice(cartStore.cart))}</p>
               <button
                 onClick={() => cartStore.setCheckout('checkout')}
                 className='py-2 mt-4 bg-teal-600 w-full font-medium rounded-md text-white'
               >
                 Checkout
               </button>
-            </>
-          )}
+            </motion.div>
+          ) : null}
         </motion.div>
         {/* Checkout form*/}
         {cartStore.onCheckout === 'checkout' && <Checkout />}

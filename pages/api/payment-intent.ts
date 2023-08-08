@@ -4,19 +4,13 @@ import { authOptions } from './auth/[...nextauth]';
 import { getServerSession } from 'next-auth';
 import { ProductType } from '@/types/ProductType';
 import { PrismaClient } from '@prisma/client';
+import totalPrice from '@/utils/TotalPrice';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: '2022-11-15',
 });
 
 const prisma = new PrismaClient();
-
-const calculateOrderAmount = (items: ProductType[]) => {
-  const totalPrice = items.reduce((acc, item) => {
-    return acc + item.unit_amount! * item.quantity!;
-  }, 0);
-  return totalPrice;
-};
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   //Get user
@@ -27,7 +21,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
   //Extract the data from the body
   const { items, payment_intent_id } = req.body;
-  const total = calculateOrderAmount(items);
+  const total = totalPrice(items);
   //Create the order data
   const orderData = {
     user: { connect: { id: userSession.user?.id } },
@@ -84,7 +78,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   } else {
     //Create a new order with prisma
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: calculateOrderAmount(items),
+      amount: totalPrice(items),
       currency: 'usd',
       automatic_payment_methods: { enabled: true },
     });

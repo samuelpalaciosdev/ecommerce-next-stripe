@@ -41,7 +41,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       if (typeof charge.payment_intent === 'string') {
         const order = await prisma.order.update({
           where: { paymentIntentId: charge.payment_intent },
-          data: { status: 'paid' },
+          data: { status: 'Complete' },
         });
       }
       console.log('Charge was successful');

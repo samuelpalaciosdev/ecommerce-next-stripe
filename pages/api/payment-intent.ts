@@ -27,7 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     user: { connect: { id: userSession.user?.id } },
     amount: total,
     currency: 'usd',
-    status: 'pending',
+    status: 'Pending',
     paymentIntentId: payment_intent_id,
     products: {
       create: items.map((item: ProductType) => ({

@@ -39,15 +39,17 @@ export default function Nav({ user }: Session) {
           </li>
         )}
         {user && (
-          <li className='list-none'>
-            <Image
-              className='rounded-full'
-              src={user?.image as string}
-              alt={user?.name as string}
-              width={36}
-              height={36}
-            />
-          </li>
+          <Link href={'/dashboard'}>
+            <li className='list-none'>
+              <Image
+                className='rounded-full'
+                src={user?.image as string}
+                alt={user?.name as string}
+                width={36}
+                height={36}
+              />
+            </li>
+          </Link>
         )}
       </ul>
       <AnimatePresence>{cartStore.isOpen && <Cart />}</AnimatePresence>

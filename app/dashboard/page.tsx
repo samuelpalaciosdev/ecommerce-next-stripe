@@ -4,6 +4,8 @@ import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import PriceFormat from '@/utils/PriceFormat';
 import Image from 'next/image';
 
+export const revalidate = 0;
+
 const fetchOrders = async () => {
   const prisma = new PrismaClient();
   // Get the current user
@@ -14,7 +16,7 @@ const fetchOrders = async () => {
 
   // Get the user's orders
   const orders = await prisma.order.findMany({
-    where: { userId: user?.user?.id },
+    where: { userId: user?.user?.id, status: 'Complete' },
     include: { products: true },
   });
 
@@ -74,27 +76,27 @@ export default async function Dashboard() {
                 ) : (
                   <p className='text-sm py-2'>Item ordered:</p>
                 )}
-                <div className='products lg:flex items-center gap-4'>
-                  {order.products.map((product) => (
-                    <div className='product py-2' key={product.id}>
-                      <div className='grid grid-cols-12 py-2 items-center'>
-                        <div className='col-span-4'>
-                          <Image
-                            src={product.image!}
-                            alt={product.name}
-                            width={80}
-                            height={80}
-                            className='w-20 h-20 object-contain'
-                          />
-                        </div>
-                        <div className='col-span-8'>
-                          <h2 className='text-sm md:text-base font-semibold py-2'>{product.name}</h2>
-                          <p className='text-sm'>Quantity: {product.quantity}</p>
-                        </div>
+
+                {order.products.map((product) => (
+                  <div className='product py-2' key={product.id}>
+                    <div className='grid grid-cols-12 py-2 items-center'>
+                      <div className='col-span-4'>
+                        <Image
+                          src={product.image!}
+                          alt={product.name}
+                          width={80}
+                          height={80}
+                          className='w-20 h-20 object-contain'
+                        />
+                      </div>
+                      <div className='col-span-8'>
+                        <h2 className='text-sm md:text-base font-semibold py-2'>{product.name}</h2>
+                        <p className='text-sm'>Quantity: {product.quantity}</p>
                       </div>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
+
                 <div className='w-full bg-gray-300' style={{ height: '1px' }}></div>
               </div>
             ))}

@@ -19,7 +19,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang='en'>
-      <body className={`${inter.className} flex flex-col mx-auto max-w-6xl min-h-screen px-4 lg:px-8`}>
+      <body className={`${inter.className} flex flex-col mx-auto max-w-7xl min-h-screen px-4 lg:px-8`}>
         <Hydrate>
           <Nav user={session?.user} expires={session?.expires as string} />
           {children}

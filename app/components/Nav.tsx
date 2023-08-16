@@ -14,7 +14,9 @@ export default function Nav() {
   return (
     <nav className='flex py-8 justify-between items-center'>
       <Link href={'/'}>
-        <span className='text-2xl font-semibold text-blue-500'>Logo</span>
+        <span className='text-2xl tracking-wider font-semibold text-neutral'>
+          teckay
+        </span>
       </Link>
       <ul className='flex items-center gap-12'>
         {/*Toggle cart */}

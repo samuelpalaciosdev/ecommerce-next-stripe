@@ -1,5 +1,6 @@
 'use client';
 import { ReactNode, useEffect, useState } from 'react';
+import { SessionProvider } from 'next-auth/react';
 
 export default function Hydrate({ children }: { children: ReactNode }) {
   const [isHydrated, setIsHydrated] = useState(false);
@@ -7,5 +8,9 @@ export default function Hydrate({ children }: { children: ReactNode }) {
   useEffect(() => {
     setIsHydrated(true);
   }, []);
-  return <>{isHydrated ? <>{children}</> : <div>Loading...</div>}</>;
+  return (
+    <SessionProvider>
+      {isHydrated ? <>{children}</> : <div>Loading...</div>}
+    </SessionProvider>
+  );
 }

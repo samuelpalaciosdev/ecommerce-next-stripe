@@ -10,8 +10,6 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: '2022-11-15',
 });
 
-
-
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   //Get user
   const userSession = await getServerSession(req, res, authOptions);

@@ -1,6 +1,5 @@
 'use client';
-import { sign } from 'crypto';
-import { Session } from 'next-auth';
+import { useSession } from 'next-auth/react';
 import { signIn, signOut } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,7 +8,8 @@ import { useCartStore } from '@/store/store';
 import { AiFillShopping } from 'react-icons/ai';
 import { AnimatePresence, motion } from 'framer-motion';
 
-export default function Nav({ user }: Session) {
+export default function Nav() {
+  const { data: session, status } = useSession();
   const cartStore = useCartStore();
   return (
     <nav className='flex py-8 justify-between items-center'>
@@ -18,7 +18,10 @@ export default function Nav({ user }: Session) {
       </Link>
       <ul className='flex items-center gap-12'>
         {/*Toggle cart */}
-        <li onClick={() => cartStore.toggleCart()} className='flex items-center text-2xl relative cursor-pointer'>
+        <li
+          onClick={() => cartStore.toggleCart()}
+          className='flex items-center text-2xl relative cursor-pointer'
+        >
           <AiFillShopping />
           {/* Show cart items count */}
           <AnimatePresence>
@@ -33,18 +36,18 @@ export default function Nav({ user }: Session) {
             )}
           </AnimatePresence>
         </li>
-        {!user && (
+        {!session?.user && (
           <li className='list-none bg-primary text-white py-2 px-4 rounded-md'>
             <button onClick={() => signIn()}>Sign in</button>
           </li>
         )}
-        {user && (
+        {session?.user && (
           <li className='list-none'>
             <div className='dropdown dropdown-end cursor-pointer'>
               <Image
                 className='rounded-full'
-                src={user?.image as string}
-                alt={user?.name as string}
+                src={session.user?.image as string}
+                alt={session.user?.name as string}
                 width={36}
                 height={36}
                 tabIndex={0}

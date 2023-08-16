@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@/utils/prisma';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import PriceFormat from '@/utils/PriceFormat';
@@ -7,7 +7,6 @@ import Image from 'next/image';
 export const revalidate = 0;
 
 const fetchOrders = async () => {
-  const prisma = new PrismaClient();
   // Get the current user
   const user = await getServerSession(authOptions);
   if (!user) {
@@ -87,6 +86,7 @@ export default async function Dashboard() {
                           width={80}
                           height={80}
                           className='w-20 h-20 object-contain'
+                          priority={true}
                         />
                       </div>
                       <div className='col-span-8'>

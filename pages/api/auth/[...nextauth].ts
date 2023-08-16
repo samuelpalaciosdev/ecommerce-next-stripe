@@ -1,10 +1,9 @@
 import NextAuth, { AuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
+import { prisma } from '@/utils/prisma';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import { PrismaClient } from '@prisma/client';
-import Stripe from 'stripe';
 
-const prisma = new PrismaClient();
+import Stripe from 'stripe';
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),

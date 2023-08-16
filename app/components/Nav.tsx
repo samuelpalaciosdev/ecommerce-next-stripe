@@ -1,7 +1,7 @@
 'use client';
 import { sign } from 'crypto';
 import { Session } from 'next-auth';
-import { signIn } from 'next-auth/react';
+import { signIn, signOut } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import Cart from './Cart';
@@ -39,17 +39,46 @@ export default function Nav({ user }: Session) {
           </li>
         )}
         {user && (
-          <Link href={'/dashboard'}>
-            <li className='list-none'>
+          <li className='list-none'>
+            <div className='dropdown dropdown-end cursor-pointer'>
               <Image
                 className='rounded-full'
                 src={user?.image as string}
                 alt={user?.name as string}
                 width={36}
                 height={36}
+                tabIndex={0}
               />
-            </li>
-          </Link>
+              <ul
+                tabIndex={0}
+                className='dropdown-content z-[1] menu p-2 space-y-4 shadow bg-base-100 rounded-box w-72'
+              >
+                <Link
+                  href={'/dashboard'}
+                  className='hover:bg-base-300 p-4 rounded-md'
+                  onClick={() => {
+                    if (document.activeElement instanceof HTMLElement) {
+                      document.activeElement.blur();
+                    }
+                  }}
+                >
+                  Orders
+                </Link>
+
+                <li
+                  onClick={() => {
+                    signOut();
+                    if (document.activeElement instanceof HTMLElement) {
+                      document.activeElement.blur();
+                    }
+                  }}
+                  className='hover:bg-base-300 p-4 rounded-md'
+                >
+                  Sign out
+                </li>
+              </ul>
+            </div>
+          </li>
         )}
       </ul>
       <AnimatePresence>{cartStore.isOpen && <Cart />}</AnimatePresence>

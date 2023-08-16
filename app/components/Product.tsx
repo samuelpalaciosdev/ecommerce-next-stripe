@@ -12,7 +12,7 @@ export default function Product({ id, name, description, metadata, unit_amount, 
       }}
     >
       <div>
-        <Image src={image} alt={name} height={300} width={300} className='w-full h-72 object-contain' />
+        <Image src={image} alt={name} height={300} width={300} className='w-full h-72 object-contain' priority={true} />
         <div className='font-medium text-gray-700 py-2'>
           <h1 className='text-lg font-semibold'>{name}</h1>
           <span className='text-base text-primary'>

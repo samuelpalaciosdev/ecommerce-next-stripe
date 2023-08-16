@@ -7,7 +7,7 @@ export default function Product({ searchParams }: searchParamsType) {
   const { id, name, description, features, unit_amount, image } = searchParams;
   return (
     <div className='flex flex-col lg:flex-row items-center gap-10 lg:gap-24 p-4 '>
-      <Image src={image} alt={name} width={320} height={320} className='w-80 h-80 aspect-square' />
+      <Image src={image} alt={name} width={320} height={320} className='w-80 h-80 aspect-square' priority={true} />
       <div className='product-info text-gray-600 max-w-xl'>
         <h1 className='text-xl font-semibold'>{name}</h1>
         <p className='text-sm mt-2'>{description}</p>

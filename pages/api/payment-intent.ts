@@ -3,14 +3,14 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { authOptions } from './auth/[...nextauth]';
 import { getServerSession } from 'next-auth';
 import { ProductType } from '@/types/ProductType';
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '@/utils/prisma';
 import totalPrice from '@/utils/TotalPrice';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: '2022-11-15',
 });
 
-const prisma = new PrismaClient();
+
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   //Get user

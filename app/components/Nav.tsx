@@ -26,7 +26,7 @@ export default function Nav({ user }: Session) {
               <motion.span
                 animate={{ scale: 1 }}
                 initial={{ scale: 0 }}
-                className='flex items-center justify-center bg-teal-600 text-white text-sm font-semibold w-5 h-5 rounded-full absolute left-4 bottom-4'
+                className='flex items-center justify-center bg-primary text-white text-sm font-semibold w-5 h-5 rounded-full absolute left-4 bottom-4'
               >
                 {cartStore.cart.length}
               </motion.span>
@@ -34,7 +34,7 @@ export default function Nav({ user }: Session) {
           </AnimatePresence>
         </li>
         {!user && (
-          <li className='list-none bg-teal-600 text-white py-2 px-4 rounded-md'>
+          <li className='list-none bg-primary text-white py-2 px-4 rounded-md'>
             <button onClick={() => signIn()}>Sign in</button>
           </li>
         )}

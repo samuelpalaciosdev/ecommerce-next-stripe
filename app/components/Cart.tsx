@@ -59,7 +59,7 @@ export default function Cart() {
                       }
                       className='inline-block'
                     >
-                      <IoAddCircle className='text-teal-600' />
+                      <IoAddCircle className='text-primary' />
                     </button>
                     <button
                       onClick={() =>
@@ -73,7 +73,7 @@ export default function Cart() {
                       }
                       className='inline-block'
                     >
-                      <IoRemoveCircle className='text-teal-600 ' />
+                      <IoRemoveCircle className='text-primary ' />
                     </button>
                   </motion.div>
                   <p className='text-sm text-gray-500'>{item.unit_amount && PriceFormat(item.unit_amount)}</p>
@@ -91,7 +91,7 @@ export default function Cart() {
               <p className='text-base font-semibold text-gray-700'>Total: {PriceFormat(totalPrice(cartStore.cart))}</p>
               <button
                 onClick={() => cartStore.setCheckout('checkout')}
-                className='py-2 mt-4 bg-teal-600 w-full font-medium rounded-md text-white'
+                className='py-2 mt-4 bg-primary w-full font-medium rounded-md text-white'
               >
                 Checkout
               </button>

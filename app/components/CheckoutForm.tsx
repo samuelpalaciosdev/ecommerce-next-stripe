@@ -47,7 +47,7 @@ export default function CheckoutForm({ clientSecret }: { clientSecret: string })
       <PaymentElement id='payment-element' options={{ layout: 'tabs' }} />
       <p className='mt-4 text-base font-bold'>Total: {formatedPrice}</p>
       <button
-        className={`inline-block rounded-md text-white py-2 mt-4 w-full bg-teal-600 disabled:opacity-25`}
+        className={`inline-block rounded-md text-white py-2 mt-4 w-full bg-primary disabled:opacity-25`}
         id='submit'
         disabled={isLoading || !stripe || !elements}
       >

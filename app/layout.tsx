@@ -18,8 +18,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const session = await getServerSession(authOptions);
 
   return (
-    <html lang='en'>
-      <body className={`${inter.className} flex flex-col mx-auto max-w-7xl min-h-screen px-4 lg:px-8`}>
+    <html lang='en' data-theme='light'>
+      <body className={`${inter.className} bg-white flex flex-col mx-auto max-w-7xl min-h-screen px-4 lg:px-8`}>
         <Hydrate>
           <Nav user={session?.user} expires={session?.expires as string} />
           {children}

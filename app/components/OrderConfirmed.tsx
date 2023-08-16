@@ -33,7 +33,7 @@ export default function OrderConfirmed() {
 
         <div className='flex items-center justify-center gap-6'>
           <Link href={'/dashboard'}>
-            <button onClick={handleCheckoutOrder} className='font-medium text-white px-4 py-2 rounded-md bg-teal-600'>
+            <button onClick={handleCheckoutOrder} className='font-medium btn btn-primary'>
               Check your order
             </button>
           </Link>

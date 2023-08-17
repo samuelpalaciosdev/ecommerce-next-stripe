@@ -15,7 +15,7 @@ export default function Nav() {
     <nav className='flex py-8 justify-between items-center'>
       <Link href={'/'}>
         <span className='text-2xl tracking-wider font-semibold text-neutral'>
-          teckay
+          nextpc
         </span>
       </Link>
       <ul className='flex items-center gap-12'>
@@ -72,7 +72,7 @@ export default function Nav() {
 
                 <li
                   onClick={() => {
-                    signOut();
+                    signOut({ callbackUrl: '/' });
                     if (document.activeElement instanceof HTMLElement) {
                       document.activeElement.blur();
                     }

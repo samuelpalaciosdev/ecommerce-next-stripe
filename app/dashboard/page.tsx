@@ -1,5 +1,5 @@
 'use client';
-
+import { useSession } from 'next-auth/react';
 import PriceFormat from '@/utils/PriceFormat';
 import { Order } from '@/types/OrderWithProducts';
 import Image from 'next/image';
@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 export default function Dashboard() {
+  const { data: session, status } = useSession();
   const [orders, setOrders] = useState<Order[] | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -26,12 +27,12 @@ export default function Dashboard() {
         setLoading(false);
       });
   }, []);
-  console.log(orders);
+  // console.log(orders);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
   return (
     <>
-      {orders === null && (
+      {!session?.user && (
         <h1 className='text-xl font-bold text-gray-600'>
           You must be logged in to view your orders
         </h1>

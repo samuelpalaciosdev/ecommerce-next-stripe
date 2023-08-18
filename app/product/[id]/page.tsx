@@ -1,9 +1,9 @@
-import { searchParamsType } from '@/types/SearchParamsType';
+import { SearchParamsType } from '@/types/SearchParamsType';
 import PriceFormat from '@/utils/PriceFormat';
 import Image from 'next/image';
 import AddToCart from './AddToCart';
 
-export default function Product({ searchParams }: searchParamsType) {
+export default async function Product({ searchParams }: SearchParamsType) {
   const { id, name, description, features, unit_amount, image } = searchParams;
   return (
     <div className='flex flex-col lg:flex-row items-center gap-10 lg:gap-24 p-4 '>

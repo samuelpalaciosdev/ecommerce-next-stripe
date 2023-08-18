@@ -11,7 +11,7 @@ type SearchParams = {
   image: string;
 };
 
-export type searchParamsType = {
+export type SearchParamsType = {
   params: Params;
   searchParams: SearchParams;
 };

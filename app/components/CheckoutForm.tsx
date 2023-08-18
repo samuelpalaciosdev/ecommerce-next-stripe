@@ -1,12 +1,20 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import {
+  PaymentElement,
+  useStripe,
+  useElements,
+} from '@stripe/react-stripe-js';
 import PriceFormat from '@/utils/PriceFormat';
 import { useCartStore } from '@/store/store';
 import totalPrice from '@/utils/TotalPrice';
 
-export default function CheckoutForm({ clientSecret }: { clientSecret: string }) {
+export default function CheckoutForm({
+  clientSecret,
+}: {
+  clientSecret: string;
+}) {
   const stripe = useStripe();
   const elements = useElements();
 
@@ -43,7 +51,7 @@ export default function CheckoutForm({ clientSecret }: { clientSecret: string })
   };
 
   return (
-    <form className='text-gray-600' onSubmit={handleSubmit} id='payment-form'>
+    <form onSubmit={handleSubmit} className='text-gray-600' id='payment-form'>
       <PaymentElement id='payment-element' options={{ layout: 'tabs' }} />
       <p className='mt-4 text-base font-bold'>Total: {formatedPrice}</p>
       <button
@@ -51,7 +59,9 @@ export default function CheckoutForm({ clientSecret }: { clientSecret: string })
         id='submit'
         disabled={isLoading || !stripe || !elements}
       >
-        <span id='button-text'>{isLoading ? <span>Processing...</span> : <span>Pay now ❤</span>}</span>
+        <span id='button-text'>
+          {isLoading ? <span>Processing...</span> : <span>Pay now ❤</span>}
+        </span>
       </button>
     </form>
   );

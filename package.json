@@ -17,14 +17,11 @@
     "@types/react-dom": "18.2.7",
     "autoprefixer": "10.4.14",
     "daisyui": "^3.5.1",
-    "eslint": "8.46.0",
-    "eslint-config-next": "13.4.12",
     "framer-motion": "^10.15.1",
     "micro": "^10.0.1",
     "next": "^13.4.16",
     "next-auth": "^4.22.3",
     "postcss": "8.4.27",
-    "prisma": "^5.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.10.1",
@@ -35,6 +32,7 @@
   },
   "devDependencies": {
     "@types/node": "20.4.8",
+    "prisma": "^5.1.1",
     "ts-node": "^10.9.1"
   }
 }

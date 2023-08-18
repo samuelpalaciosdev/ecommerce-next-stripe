@@ -15,7 +15,7 @@ export default function Product({
     <Link
       href={{
         pathname: `/product/${id}`,
-        query: { id, name, description, metadata, unit_amount, image },
+        query: { name, image, unit_amount, id, description, metadata },
       }}
     >
       <div className='product'>

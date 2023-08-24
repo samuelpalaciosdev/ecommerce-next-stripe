@@ -1,16 +1,15 @@
-import Stripe from 'stripe';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { authOptions } from './auth/[...nextauth]';
 import { getServerSession } from 'next-auth';
 import { ProductType } from '@/types/ProductType';
 import { prisma } from '@/utils/prisma';
 import totalPrice from '@/utils/TotalPrice';
+import { stripe } from '@/lib/stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: '2022-11-15',
-});
-
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   //Get user
   const userSession = await getServerSession(req, res, authOptions);
   if (!userSession?.user) {
@@ -40,9 +39,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   //Check if the payment intent exists just update the order
   if (payment_intent_id) {
-    const current_intent = await stripe.paymentIntents.retrieve(payment_intent_id);
+    const current_intent = await stripe.paymentIntents.retrieve(
+      payment_intent_id
+    );
     if (current_intent) {
-      const updated_intent = await stripe.paymentIntents.update(payment_intent_id, { amount: total });
+      const updated_intent = await stripe.paymentIntents.update(
+        payment_intent_id,
+        { amount: total }
+      );
       //Fetch order with product ids
       const [existing_order, updated_order] = await Promise.all([
         prisma.order.findFirst({

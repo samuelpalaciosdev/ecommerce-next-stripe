@@ -1,10 +1,6 @@
-import Stripe from 'stripe';
+import { stripe } from '@/lib/stripe';
 
 export default async function getProducts() {
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-    apiVersion: '2022-11-15',
-  });
-
   const products = await stripe.products.list();
 
   const productsWithPrices = await Promise.all(

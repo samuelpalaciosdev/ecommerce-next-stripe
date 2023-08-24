@@ -1,7 +1,8 @@
-import Stripe from 'stripe';
+import { stripe } from '@/lib/stripe';
 import { prisma } from '@/utils/prisma';
 import { buffer } from 'micro';
 import { NextApiRequest, NextApiResponse } from 'next';
+import Stripe from 'stripe';
 
 export const config = {
   api: {
@@ -9,11 +10,10 @@ export const config = {
   },
 };
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: '2022-11-15',
-});
-
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const body = await buffer(req);
   const sig = req.headers['stripe-signature'];
 
@@ -24,7 +24,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   let event: Stripe.Event;
 
   try {
-    event = stripe.webhooks.constructEvent(body, sig, process.env.STRIPE_WEBHOOK_SECRET as string);
+    event = stripe.webhooks.constructEvent(
+      body,
+      sig,
+      process.env.STRIPE_WEBHOOK_SECRET as string
+    );
   } catch (err) {
     return res.status(400).send('Webhook error: ' + err);
   }
